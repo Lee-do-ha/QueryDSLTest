@@ -1,11 +1,7 @@
 package com.example.querydsl;
 
 import com.example.querydsl.member.entity.Member;
-import com.example.querydsl.member.entity.QMember;
 import com.example.querydsl.team.entity.Team;
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.dsl.Wildcard;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
@@ -18,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.example.querydsl.member.entity.QMember.*;
+import static com.example.querydsl.member.entity.QMember.member;
 
 @SpringBootTest
 @Transactional
