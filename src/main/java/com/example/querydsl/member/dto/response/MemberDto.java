@@ -1,4 +1,4 @@
-package com.example.querydsl.member.entity.response;
+package com.example.querydsl.member.dto.response;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;

@@ -2,9 +2,8 @@ package com.example.querydsl;
 
 import com.example.querydsl.member.entity.Member;
 import com.example.querydsl.member.entity.QMember;
-import com.example.querydsl.member.entity.response.MemberDto;
-import com.example.querydsl.member.entity.response.QMemberDto;
-import com.example.querydsl.member.entity.response.UserDto;
+import com.example.querydsl.member.dto.response.MemberDto;
+import com.example.querydsl.member.dto.response.UserDto;
 import com.example.querydsl.team.entity.Team;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
@@ -24,7 +23,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -516,7 +514,7 @@ public class QuerydslBasicTest {
 
     @Test
     public void findDtoByJPQL(){
-        List<MemberDto> resultList = em.createQuery("select new com.example.querydsl.member.entity.response.MemberDto(m.username, m.age) " +
+        List<MemberDto> resultList = em.createQuery("select new com.example.querydsl.member.dto.response.MemberDto(m.username, m.age) " +
                 "from Member m ", MemberDto.class).getResultList();
 
         for (MemberDto memberDto : resultList) {
@@ -616,18 +614,18 @@ public class QuerydslBasicTest {
      * MemberDto가 queryDSL 의존성을 가지게 됨
      * MemberDto가 repo -> service -> controller 흘러가면서 지속적으로 @QueryProjection이 실행
      */
-    @Test
-    public void findDtoByQueryProjection(){
-        List<MemberDto> result = queryFactory
-                .select(new QMemberDto(member.username, member.age))
-                .from(member)
-                .fetch();
-
-        for (MemberDto memberDto : result) {
-            System.out.println("memberDto = " + memberDto);
-        }
-
-    }
+//    @Test
+//    public void findDtoByQueryProjection(){
+//        List<MemberDto> result = queryFactory
+//                .select(new QMemberDto(member.username, member.age))
+//                .from(member)
+//                .fetch();
+//
+//        for (MemberDto memberDto : result) {
+//            System.out.println("memberDto = " + memberDto);
+//        }
+//
+//    }
 
     /**
      * 동적 쿼리 - BooleanBuilder 사용

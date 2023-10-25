@@ -1,4 +1,4 @@
-package com.example.querydsl.member.entity.response;
+package com.example.querydsl.member.dto.response;
 
 import lombok.Data;
 
