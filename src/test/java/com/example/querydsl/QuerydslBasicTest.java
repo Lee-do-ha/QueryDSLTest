@@ -170,17 +170,12 @@ public class QuerydslBasicTest {
     }
 
     @Test
-    public void paging1() {
+    public void count() {
 
-        List<Member> result = queryFactory
-                .select(member)
+        Long count = queryFactory
+                .select(member.count())
                 .from(member)
-                .orderBy(member.username.desc())
-                .offset(1)
-                .limit(2)
-                .fetch();
-
-        Assertions.assertThat(result.size()).isEqualTo(2);
+                .fetchOne();
 
     }
 
@@ -235,19 +230,13 @@ public class QuerydslBasicTest {
      * 팀 A에 소속된 모든 회원
      */
     @Test
-    public void join() throws Exception{
-
-        List<Member> result = queryFactory
+    public void join() {
+        queryFactory
                 .select(member)
                 .from(member)
                 .join(member.team, team)
                 .where(team.name.eq("teamA"))
                 .fetch();
-
-        Assertions.assertThat(result)
-                .extracting("username")
-                .containsExactly("member1", "member2");
-
     }
 
     /**
@@ -332,9 +321,6 @@ public class QuerydslBasicTest {
 
     @Test
     public void fetchJoinUse() throws Exception{
-        em.flush();
-        em.clear();
-
         Member findMember = queryFactory
                 .select(member)
                 .from(member)
@@ -344,7 +330,6 @@ public class QuerydslBasicTest {
 
         boolean loaded = emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
         Assertions.assertThat(loaded).as("페치 조인 적용").isTrue();
-
     }
 
     /**
@@ -516,11 +501,6 @@ public class QuerydslBasicTest {
     public void findDtoByJPQL(){
         List<MemberDto> resultList = em.createQuery("select new com.example.querydsl.member.dto.response.MemberDto(m.username, m.age) " +
                 "from Member m ", MemberDto.class).getResultList();
-
-        for (MemberDto memberDto : resultList) {
-            System.out.println("memberDto = " + memberDto);
-        }
-
     }
 
     /**

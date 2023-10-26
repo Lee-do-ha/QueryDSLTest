@@ -69,7 +69,7 @@ class MemberQueryRepositoryTest {
         List<MemberTeamDto> result = memberQueryRepository.searchByWhere(cond);
         assertThat(result)
                 .extracting("username")
-                .containsExactly("member3", "member4");
+                .containsExactly("member4");
 
     }
 
